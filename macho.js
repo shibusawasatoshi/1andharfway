@@ -30,7 +30,7 @@ const bgm=new Array(bgm0,bgm1,bgm2,bgm3,bgm4,bgm5,bgm6,bgm7,bgm8,bgm9);
 const result_rep=new Array('apple');
 
 function countdown(){
-    count=-1;
+    count=-2;
     let downid = setTimeout(countdown, 1000);
     console.log(`上げるカウント${downcount++}`);
     
@@ -51,7 +51,7 @@ function countdown(){
         clearTimeout(downid);
     }else{
       
-        log.innerHTML=`上げる${downcount}`;
+        log.innerHTML=`下げる${downcount}`;
     }
     }
     
@@ -59,7 +59,7 @@ function countdown(){
 
 
 function countup(){
-    downcount=-1;
+    downcount=-2;
     let id = setTimeout(countup, 1000);
     console.log(`下げるカウント${count++}`);
     if(count > 2){　
@@ -78,7 +78,7 @@ function countup(){
         clearTimeout(id);
     }else{
      
-        log.innerHTML=`上げる${count}`;
+        log.innerHTML=`下げる${count}`;
     }
     };
 
@@ -101,11 +101,21 @@ function voicecount_down(){
         const up_promice=new Promise((resolve,)=>{
             clearTimeout(downbgm);
              bgmdown.play();
+             const up_up_promice=new Promise((resolve,)=>{
+                
+                 setTimeout(()=>{
+                    resolve();
+                    console.log('a');
+                    bgmup.play();
+                   },1000);
+             });
+             up_up_promice.then(()=>{
+            });
             
              setTimeout(()=>{
                 resolve();
                 console.log('a');
-               },1000);
+               },2000);
          });
          up_promice.then(()=>{
             voicecount_up();
@@ -135,11 +145,22 @@ function voicecount_up(){
     if(bgmcount_up > 1){　
         const down_promice=new Promise((resolve,)=>{
             bgmdown.play();
+            const down_down_promice=new Promise((resolve,)=>{
+                clearTimeout(upbgm);
+                setTimeout(()=>{
+                    resolve();
+                    console.log('a');
+                    bgmup.play();
+                   },1000);
+             });
+           down_down_promice.then(()=>{
+            
+            });
             clearTimeout(upbgm);
             setTimeout(()=>{
                 resolve();
                 console.log('a');
-               },1000);
+               },2000);
          });
        down_promice.then(()=>{
             voicecount_down();
